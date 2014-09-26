@@ -3,7 +3,7 @@ var udp = require('dgram')
 
 module.exports = UdpStream;
 
-function UdpStream (options) {
+function UdpStream (options, cb) {
     var options = options || {};
 
     var address         = options.address       || '0.0.0.0';
@@ -45,25 +45,37 @@ function UdpStream (options) {
         socket.emit('data', msg);
     });
 
+    socket.on('error', startupErrorListener);
+
     socket.bind(port, address);
 
     socket.on('listening', function () {
+        socket.removeListener('error', startupErrorListener);
+
         if (multicast) {
             //set up for multicast
             try {
                 socket.addMembership(multicast);
                 socket.setMulticastTTL(multicastTTL);
             }
-            catch (e) {
-                socket.emit('error', e);
+            catch (err) {
+                socket.emit('error', err);
+
+                return cb && cb(err);
             }
         }
         else if (broadcast) {
             socket.setBroadcast(true);
         }
+
+	return cb && cb();
     });
 
     socket.pipe = pipe;
 
     return socket;
+
+    function startupErrorListener(err) {
+        return cb && cb(err);
+    }
 }
