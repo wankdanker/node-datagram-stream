@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/wankdanker/node-datagram-stream/issues"
   },
-  "homepage": "https://github.com/wankdanker/node-datagram-stream"
+  "homepage": "https://github.com/wankdanker/node-datagram-stream",
+  "devDependencies": {
+    "tape": "^3.0.0"
+  }
 }
