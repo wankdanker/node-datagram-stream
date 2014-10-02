@@ -21,11 +21,12 @@ usage
 var udp = require('datagram-stream');
 
 var stream = udp({
-    multicast  : '239.5.5.5' //multicast ip address to send to and listen on
-    , port     : 5555        //udp port to send to and listen on
-    , loopback : true        //boolean: whether or not to receive sent datagrams
-                             //         on the loopback device. Only applies to
-                             //         multicast. Default: false
+    address     : '0.0.0.0'   //address to bind to
+    , multicast : '239.5.5.5' //multicast ip address to send to and listen on
+    , port      : 5555        //udp port to send to and listen on
+    , loopback  : true        //boolean: whether or not to receive sent datagrams
+                              //         on the loopback device. Only applies to
+                              //         multicast. Default: false
 });
 
 //pipe whatever is received to stdout
@@ -41,8 +42,9 @@ proces.stdin.pipe(stream);
 var udp = require('datagram-stream');
 
 var stream = udp({
-    broadcast  : '255.255.255.255' //broadcast ip address to send to and listen on
-    , port     : 5555              //udp port to send to and listen on
+    address     : '0.0.0.0'         //address to bind to
+    , broadcast : '255.255.255.255' //broadcast ip address to send to
+    , port      : 5555              //udp port to send to and listen on
 });
 
 //pipe whatever is received to stdout
@@ -58,8 +60,9 @@ proces.stdin.pipe(stream);
 var udp = require('datagram-stream');
 
 var stream = udp({
-    unicast    : '127.0.0.1'       //unicast ip address to send to
-    , port     : 5555              //udp port to send to and listen on
+    address   : '0.0.0.0'   //address to bind to
+    , unicast : '127.0.0.1' //unicast ip address to send to
+    , port    : 5555        //udp port to send to and listen on
 });
 
 //pipe whatever is received to stdout
