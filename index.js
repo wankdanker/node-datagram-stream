@@ -28,7 +28,9 @@ function UdpStream (options, cb) {
     };
 
     socket.end = function () {
-        socket.close();
+        setImmediate(function () {
+            socket.close();
+        });
     }
 
     socket.pause = function () {
