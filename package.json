@@ -1,6 +1,6 @@
 {
   "name": "datagram-stream",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Streaming UDP with bcast, mcast or direct options",
   "main": "index.js",
   "scripts": {
