@@ -54,7 +54,7 @@ stream.pipe(process.stdout);
 proces.stdin.pipe(stream);
 ```
 
-## broadcast
+## unicast
 
 ```js
 var udp = require('datagram-stream');
