@@ -1,5 +1,6 @@
 var udp = require('dgram')
-    , pipe = require('stream').prototype.pipe;
+    , pipe = require('stream').prototype.pipe
+    , nodeVersion = process.version.replace('v','').split(/\./gi).map(function (t) { return parseInt(t, 10) });
 
 module.exports = UdpStream;
 
@@ -14,8 +15,17 @@ function UdpStream (options, cb) {
     var multicastTTL    = options.multicastTTL  || 1;
     var destination     = options.unicast       || multicast || broadcast;
     var loopback        = options.loopback      || false;
+    var reuseAddr       = (options.reuseAddr === false) ? false : true;
+    var socket;
 
-    var socket = udp.createSocket('udp4');
+    if (nodeVersion[0] === 0 && nodeVersion[1] < 12) {
+        //node v0.10 does not support passing an object to dgram.createSocket
+	    //not sure if v0.11 does, but assuming it does not.
+        socket = udp.createSocket('udp4');
+    }
+    else {
+        socket = udp.createSocket({type: 'udp4', reuseAddr: self.reuseAddr });
+    }
 
     socket.write = function (message) {
         if (typeof message === "string") {
