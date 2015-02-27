@@ -24,6 +24,8 @@ var stream = udp({
     address     : '0.0.0.0'   //address to bind to
     , multicast : '239.5.5.5' //multicast ip address to send to and listen on
     , port      : 5555        //udp port to send to and listen on
+    , reuseAddr : true        //boolean: allow multiple processes to bind to the
+                              //         same address and port. Default: true
     , loopback  : true        //boolean: whether or not to receive sent datagrams
                               //         on the loopback device. Only applies to
                               //         multicast. Default: false
@@ -45,7 +47,9 @@ var stream = udp({
     address     : '0.0.0.0'         //address to bind to
     , broadcast : '255.255.255.255' //broadcast ip address to send to
     , port      : 5555              //udp port to send to and listen on
-});
+    , reuseAddr : true              //boolean: allow multiple processes to bind to the
+                                    //         same address and port. Default: true
+ });
 
 //pipe whatever is received to stdout
 stream.pipe(process.stdout);
@@ -60,10 +64,12 @@ proces.stdin.pipe(stream);
 var udp = require('datagram-stream');
 
 var stream = udp({
-    address   : '0.0.0.0'   //address to bind to
-    , unicast : '127.0.0.1' //unicast ip address to send to
-    , port    : 5555        //udp port to send to and listen on
-});
+    address     : '0.0.0.0'   //address to bind to
+    , unicast   : '127.0.0.1' //unicast ip address to send to
+    , port      : 5555        //udp port to send to and listen on
+    , reuseAddr : true        //boolean: allow multiple processes to bind to the
+                              //         same address and port. Default: true
+ });
 
 //pipe whatever is received to stdout
 stream.pipe(process.stdout);
