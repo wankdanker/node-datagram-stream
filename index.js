@@ -13,18 +13,18 @@ function UdpStream (options, cb) {
     var broadcast       = options.broadcast     || null;
     var multicast       = options.multicast     || null;
     var multicastTTL    = options.multicastTTL  || 1;
-    var destination     = options.unicast       || multicast || broadcast;
+    var destination     = unicast               || multicast || broadcast;
     var loopback        = options.loopback      || false;
     var reuseAddr       = (options.reuseAddr === false) ? false : true;
     var socket;
 
     if (nodeVersion[0] === 0 && nodeVersion[1] < 12) {
         //node v0.10 does not support passing an object to dgram.createSocket
-	    //not sure if v0.11 does, but assuming it does not.
+        //not sure if v0.11 does, but assuming it does not.
         socket = udp.createSocket('udp4');
     }
     else {
-        socket = udp.createSocket({type: 'udp4', reuseAddr: self.reuseAddr });
+        socket = udp.createSocket({type: 'udp4', reuseAddr: reuseAddr });
     }
 
     socket.write = function (message) {
@@ -41,17 +41,17 @@ function UdpStream (options, cb) {
         setImmediate(function () {
             socket.close();
         });
-    }
+    };
 
     socket.pause = function () {
         socket.paused = true;
         return this;
-    }
+    };
 
     socket.resume = function () {
         socket.paused = false;
         return this;
-    }
+    };
 
     socket.on('message', function (msg, rinfo) {
         msg.rinfo = rinfo;
@@ -71,7 +71,7 @@ function UdpStream (options, cb) {
             try {
                 socket.addMembership(multicast);
                 socket.setMulticastTTL(multicastTTL);
-		socket.setMulticastLoopback(loopback ? true : false);
+                socket.setMulticastLoopback(loopback ? true : false);
             }
             catch (err) {
                 socket.emit('error', err);
@@ -83,7 +83,7 @@ function UdpStream (options, cb) {
             socket.setBroadcast(true);
         }
 
-	return cb && cb();
+        return cb && cb();
     });
 
     socket.pipe = pipe;
