@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/wankdanker/node-datagram-stream",
   "devDependencies": {
-    "tape": "^3.0.0"
+    "tape": "^4.0.0"
   }
 }
