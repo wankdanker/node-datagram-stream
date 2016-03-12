@@ -9,6 +9,7 @@ function UdpStream (options, cb) {
 
     var address         = options.address       || '0.0.0.0';
     var port            = options.port          || 12345;
+    var bindingPort     = options.bindingPort   || port;
     var unicast         = options.unicast       || null;
     var broadcast       = options.broadcast     || null;
     var multicast       = options.multicast     || null;
@@ -61,7 +62,7 @@ function UdpStream (options, cb) {
 
     socket.on('error', startupErrorListener);
 
-    socket.bind(port, address);
+    socket.bind(bindingPort, address);
 
     socket.on('listening', function () {
         socket.removeListener('error', startupErrorListener);
