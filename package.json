@@ -1,6 +1,6 @@
 {
   "name": "datagram-stream",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "Streaming UDP with broadcast, multicast and unicast options",
   "main": "index.js",
   "scripts": {
