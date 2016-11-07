@@ -36,7 +36,7 @@ var stream = udp({
 stream.pipe(process.stdout);
 
 //pipe whatever is received on stdin over udp
-proces.stdin.pipe(stream);
+process.stdin.pipe(stream);
 ```
 
 ## broadcast
@@ -57,7 +57,7 @@ var stream = udp({
 stream.pipe(process.stdout);
 
 //pipe whatever is received on stdin over udp
-proces.stdin.pipe(stream);
+process.stdin.pipe(stream);
 ```
 
 ## unicast
@@ -78,7 +78,7 @@ var stream = udp({
 stream.pipe(process.stdout);
 
 //pipe whatever is received on stdin over udp
-proces.stdin.pipe(stream);
+process.stdin.pipe(stream);
 ```
 
 acknowledgments
