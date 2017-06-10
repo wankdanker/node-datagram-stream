@@ -40,6 +40,7 @@ function UdpStream (options, cb) {
 
     socket.end = function () {
         setImmediate(function () {
+            socket.emit('end')
             socket.close();
         });
     };
